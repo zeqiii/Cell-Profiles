@@ -91,7 +91,7 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
   data <- data[rowSums(is.na(data)) != ncol(data),]
 
   ##set initial values
-  cat("set init values")
+  cat("set init values\n")
   t0 <- proc.time()
   adj_tick <- ifelse(position=="left", 7, 8)
 	cmin <- range[1]
@@ -136,7 +136,7 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 
 	# 1: orientation ----------------------------------------------------------
 	#orients or randomizes data
-  cat("orientation")
+  cat("orientation...\n")
 	for(ii in 1:ncol){
 	  #DEBUG: ii <- 1
 	  real_rows_ii <- nrow(na.omit(profile[ii]))
