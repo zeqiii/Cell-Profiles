@@ -91,6 +91,7 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
   data <- data[rowSums(is.na(data)) != ncol(data),]
 
   ##set initial values
+  cat("set init values")
   t0 <- proc.time()
   adj_tick <- ifelse(position=="left", 7, 8)
 	cmin <- range[1]
@@ -135,6 +136,7 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 
 	# 1: orientation ----------------------------------------------------------
 	#orients or randomizes data
+  cat("orientation")
 	for(ii in 1:ncol){
 	  #DEBUG: ii <- 1
 	  real_rows_ii <- nrow(na.omit(profile[ii]))
@@ -156,6 +158,7 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 
 	# 2: contrast ----------------------------------------------------------
 	#perform contrast adjustments
+  cat("contrast")
 	tmp_profile <- profile
   for(ii in 1:ncol){
     #DEBUG: ii <- 1
@@ -190,6 +193,7 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 	# 3: ordering ----------------------------------------------------------
 	#find maximum length of each column, and the number of real values in each column
 	#then order cells by measured cell length values
+  cat("ordering")
 	cellength <- {}
 	collength <- {}
 	for(i in 1:ncol){
@@ -207,6 +211,7 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 	# or just on the right if not
 
 	#takes the lengths from the (first) longest cell
+  cat("centering and padding...")
 	x_grid_o <- dlength[,!is.na(dlength[nrow,])][,1]
 	x_grid <- seq(min(x_grid_o), max(x_grid_o), length.out=length(x_grid_o))
 	#must round after diff due to floating point error
@@ -261,6 +266,7 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 
   # 5: stacking ----------------------------------------------------------
   #setup the y values to stack each profile
+  cat("stacking...")
   plotheight <- {}
   for(i in 1:ncol){
     plotheight <- append(plotheight, rep(i,nrow))
@@ -269,6 +275,7 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 
 	# 6: reshaping data ----------------------------------------------------------
 	#apply order info from above
+  cat("reshaping...")
 	or_dlength <- reshape2::melt(dlength[collength],id=NULL)
 	or_profile <- reshape2::melt(profile[collength],id=NULL)
 	or_dtable <- cbind(or_dlength,plotheight/ncol,or_profile[2])
@@ -300,6 +307,7 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 
 	# 7: interpolating ----------------------------------------------------------
 	#prepare a data set interpolated to the same coordinates (for geom_raster)
+  cat("interpolating...")
 	interp_dtable <- data.frame("x"=NA, "y"=NA, "cell"=rep(1:ncol, each=length(seq(min(x_grid), max(x_grid)+interpol_unit, interpol_unit))) )
 	n <- 1
 	for(i in collength){
@@ -312,6 +320,7 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 
 	# 8: rescaling (for scatter plots) ----------------------------------------------------------
 	#prepare a list suitable for making x-y scatter plots (x - axis converted to proportion of cell length)
+  cat("rescaling...")
 	prop_dtable <-
 	  data.frame("x" = NA,
 	             "y" = NA,
