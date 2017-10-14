@@ -277,6 +277,15 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 
       #basically shifts the profile y-values around so they align with the x_grid.
       #cells that are opposite the odd/even-ness of the longest cell will be shifted left by 1/2 a unit.
+      ttt <- rep(NA,1,before-1)
+      cat("211\n")
+      cat(ttt)
+      tttt <- na.omit(profile[,ii])
+      cat("212\n")
+      cat(tttt)
+      ttttt <- rep(NA, after, nrow(profile)-after)
+      cat("213\n")
+      cat(ttttt)
       profile[ii] <- c(rep(NA,1,before-1), na.omit(profile[,ii]), rep(NA, after, nrow(profile)-after))
       cat("22\n")
     }
