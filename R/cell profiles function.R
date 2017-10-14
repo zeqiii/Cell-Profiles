@@ -213,34 +213,51 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 	#takes the lengths from the (first) longest cell
   cat("centering and padding...\n")
 	x_grid_o <- dlength[,!is.na(dlength[nrow,])][,1]
+           cat("1\n")
 	x_grid <- seq(min(x_grid_o), max(x_grid_o), length.out=length(x_grid_o))
+           cat("2\n")
 	#must round after diff due to floating point error
 	x_diff <- signif(diff(x_grid), digits=10)
+           cat("3\n")
 
 	#finds most common difference b/t these x-units
 	x_unit <- unique(x_diff)[ which.max(tabulate(match(x_diff, unique(x_diff) ) )) ]
+           cat("4\n")
 
   x_pad <- (max(x_grid)*0.05) %/% x_unit
+           cat("5\n")
   x_grid <- c(x_grid_o, seq(from= max(x_grid_o)+x_unit, by= x_unit, length.out= x_pad) )
+           cat("6\n")
 
   if (position == "center"){
+    cat("7\n")
     x_grid <- c( rev(seq(from=min(x_grid)-x_unit, by=-x_unit, length.out=x_pad)), x_grid)
+    cat("8\n")
     x_grid <- x_grid - 0.5*max(x_grid_o)
+    cat("9\n")
   }
 
   #lengths
   table_pad <- dlength[1:(length(x_grid)-nrow(profile)),]
+           cat("10\n")
   table_pad[1:nrow(table_pad),] <- NA
+           cat("11\n")
   dlength <- rbind(dlength, table_pad)
+           cat("12\n")
 
   #profile
   table_pad <- profile[1:(length(x_grid)-nrow(profile)),]
+           cat("13\n")
   table_pad[1:nrow(table_pad),] <- NA
+           cat("14\n")
   profile <- rbind(profile, table_pad )
+           cat("15\n")
 
   nrow <- nrow(dlength)
+           cat("16\n")
 
   if (position == "center"){
+    cat("17\n")
     for(ii in 1:ncol){
       #ii <- 24
       #ii <- 26
@@ -250,19 +267,26 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
          offset <- 1
        }
 
+      cat("18\n")
       nrow(na.omit(dlength[ii]))
+      cat("19\n")
       before <- ceiling( (length(x_grid)-length(dlength[!is.na(dlength[ii]), ii]) ) / 2 + offset)
+      cat("20\n")
       after <- length(x_grid) - ceiling( (length(x_grid)-length(dlength[!is.na(dlength[ii]), ii]) ) / 2)
+      cat("21\n")
 
       #basically shifts the profile y-values around so they align with the x_grid.
       #cells that are opposite the odd/even-ness of the longest cell will be shifted left by 1/2 a unit.
       profile[ii] <- c(rep(NA,1,before-1), na.omit(profile[,ii]), rep(NA, after, nrow(profile)-after))
+      cat("22\n")
     }
   }
   #copies in the uniform x_grid for all cells
   dlength[1:nrow(dlength),] <- x_grid
+           cat("23\n")
 
   setTxtProgressBar(tick,(adj_tick-4)*ncol)
+           cat("24\n")
 
   # 5: stacking ----------------------------------------------------------
   #setup the y values to stack each profile
