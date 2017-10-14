@@ -290,6 +290,8 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
       ttttt <- rep(NA, after, nrow(profile)-after)
       cat("213\n")
       cat(ttttt)
+      cat("len of profile[ii]\n")
+      cat(length(profile[ii]))
       profile[ii] <- c(rep(NA,1,before-1), na.omit(profile[,ii]), rep(NA, after, nrow(profile)-after))
       cat("22\n")
     }
