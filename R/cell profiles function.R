@@ -254,6 +254,8 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
            cat("14\n")
   profile <- rbind(profile, table_pad )
            cat("15\n")
+	   cat("len of profile.....\n")
+	   cat(length(profile))
 
   nrow <- nrow(dlength)
            cat("16\n")
