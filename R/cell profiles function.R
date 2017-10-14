@@ -130,7 +130,7 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 	    position=",position,", align=",align,", reverse=",reverse,", contrast=",contrast,", range=c(",range[1],", ",range[2],")\n", sep="")
 
 	#initialize the progress bar. everyone loves progress bars, right?
-	cat("Calculating:\n")
+	cat("Calculating...:\n")
 	tick <- txtProgressBar(min=1,max=ncol*adj_tick,style=3)
 	setTxtProgressBar(tick,ncol/ncol)
 
@@ -158,7 +158,7 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 
 	# 2: contrast ----------------------------------------------------------
 	#perform contrast adjustments
-  cat("contrast")
+  cat("contrast\n")
 	tmp_profile <- profile
   for(ii in 1:ncol){
     #DEBUG: ii <- 1
@@ -193,7 +193,7 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 	# 3: ordering ----------------------------------------------------------
 	#find maximum length of each column, and the number of real values in each column
 	#then order cells by measured cell length values
-  cat("ordering")
+  cat("ordering\n")
 	cellength <- {}
 	collength <- {}
 	for(i in 1:ncol){
@@ -211,7 +211,7 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 	# or just on the right if not
 
 	#takes the lengths from the (first) longest cell
-  cat("centering and padding...")
+  cat("centering and padding...\n")
 	x_grid_o <- dlength[,!is.na(dlength[nrow,])][,1]
 	x_grid <- seq(min(x_grid_o), max(x_grid_o), length.out=length(x_grid_o))
 	#must round after diff due to floating point error
