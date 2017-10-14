@@ -100,6 +100,8 @@ cellProfiles <- function(data=NULL, position="center", align="native", reverse=F
 	nrow <- nrow(data) #note: this is overwritten with a new value in step 4
 	dlength <- data[seq(1,ncol*2,by=2)]
 	profile <- data[seq(2,ncol*2,by=2)]
+	cat("length of profile..................\n")
+	cat(length(profile))
 	maxlength <- ceiling(max(dlength,na.rm=TRUE))
 	wtmeanleft <- log((50:5)/5)/log(10)
 	wtmeanright <- log((5:50)/5)/log(10)
